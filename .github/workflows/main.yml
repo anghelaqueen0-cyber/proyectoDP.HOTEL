@@ -1,4 +1,4 @@
-name: Control de Calidad del Hotel
+yamlname: Control de Calidad del Hotel
 
 on:
   push:
@@ -20,7 +20,12 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
 
-    - name: Compilar el proyecto burlando el servidor web
+    - name: Descargar libreria CopyLibs de NetBeans
+      run: |
+        mkdir -p lib
+        curl -L -o lib/org-netbeans-modules-java-j2seproject-copylibstask.jar https://maven.org
+
+    - name: Compilar el proyecto burlando el servidor y CopyLibs
       run: |
         mkdir -p fake-server
-        ant -Dno.dependencies=true -Dj2ee.server.home=fake-server compile
+        ant -Dno.dependencies=true -Dj2ee.server.home=fake-server -Dlibs.CopyLibs.classpath=lib/org-netbeans-modules-java-j2seproject-copylibstask.jar compile
