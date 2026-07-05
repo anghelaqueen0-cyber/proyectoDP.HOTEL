@@ -20,5 +20,7 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
 
-    - name: Compilar el proyecto del hotel con Ant (Sin Validar Servidor)
-      run: ant -Dno.dependencies=true compile
+    - name: Compilar el proyecto burlando el servidor web
+      run: |
+        mkdir -p fake-server
+        ant -Dno.dependencies=true -Dj2ee.server.home=fake-server compile
