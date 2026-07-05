@@ -1,4 +1,4 @@
-yamlname: Control de Calidad del Hotel
+name: Control de Calidad del Hotel
 
 on:
   push:
