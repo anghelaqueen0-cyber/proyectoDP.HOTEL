@@ -14,12 +14,11 @@ jobs:
     - name: Descargar el codigo del repositorio
       uses: actions/checkout@v4
 
-    - name: Configurar Java de NetBeans
+    - name: Configurar Java para NetBeans
       uses: actions/setup-java@v4
       with:
-        java-version: '17'
+        java-version: '11'
         distribution: 'temurin'
-        cache: maven
 
-    - name: Compilar y probar el proyecto del hotel
-      run: mvn -B package --file pom.xml
+    - name: Compilar el proyecto del hotel con Ant
+      run: ant compile
