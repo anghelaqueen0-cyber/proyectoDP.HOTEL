@@ -20,5 +20,5 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
 
-    - name: Compilar el proyecto del hotel con Ant
-      run: ant compile
+    - name: Compilar el proyecto del hotel con Ant (Sin Validar Servidor)
+      run: ant -Dno.dependencies=true compile
