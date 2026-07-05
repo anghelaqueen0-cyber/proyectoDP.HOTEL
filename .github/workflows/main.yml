@@ -20,12 +20,12 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
 
-    - name: Descargar libreria CopyLibs de NetBeans
+    - name: Descargar libreria CopyLibs Oficial de NetBeans
       run: |
         mkdir -p lib
-        curl -L -o lib/org-netbeans-modules-java-j2seproject-copylibstask.jar https://maven.org
+        curl -L -s -o lib/org-netbeans-modules-java-j2seproject-copylibstask.jar https://apache.org
 
     - name: Compilar el proyecto burlando el servidor y CopyLibs
       run: |
         mkdir -p fake-server
-        ant -Dno.dependencies=true -Dj2ee.server.home=fake-server -Dlibs.CopyLibs.classpath=lib/org-netbeans-modules-java-j2seproject-copylibstask.jar compile
+        ant -Dno.dependencies=true -Dj2ee.server.home=fake-server -Dlibs.CopyLibs.classpath=lib/org-netbeans-modules-java-j2seproject-copylibstask.jar -Dlibs.CopyLibs.instance=lib/org-netbeans-modules-java-j2seproject-copylibstask.jar compile
