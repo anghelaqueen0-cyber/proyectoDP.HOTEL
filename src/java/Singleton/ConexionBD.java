@@ -1,0 +1,39 @@
+package Singleton;
+
+import java.sql.*;
+
+public class ConexionBD {
+
+    // Instancia única (Singleton)
+    private static ConexionBD instancia;
+    // Objeto conexión
+    private Connection conexion;
+
+    // Constructor privado (Ahora queda limpio)
+    private ConexionBD() {
+    }
+
+    // Método Singleton
+    public static ConexionBD getInstancia() {
+        // Crear solo una vez
+        if (instancia == null) {
+            instancia = new ConexionBD();
+        }
+        return instancia;
+    }
+
+    // Retorna la conexión (Corregido para evitar el "Connection closed")
+    public Connection getConexion() {
+        try {
+            // Si la conexión nunca se creó, o si algún proceso ya la cerró, abrimos una nueva
+            if (conexion == null || conexion.isClosed()) {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/BD_Hotel", "root", "root");
+                System.out.println("🔌 [ConexionBD] ¡Nueva conexión física establecida con éxito!");
+            }
+        } catch (Exception e) {
+            System.out.println("❌ Error al conectar BD: " + e);
+        }
+        return conexion;
+    }
+}
